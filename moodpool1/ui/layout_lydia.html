@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <title>{{ @html_title }}</title>
+	  <meta charset='utf8' />
+	</head>
+	<p/>
+	<a href="{{ @BASE }}/{{@username}}/home">{{@username}}</a>
+	<body>
+	  <include href="{{ @content }}" />
+	</body>
+	<form name="form1" action="{{ @BASE }}/login" method="get"> 
+		<input type="{{@hidden[0]}}" value="login"/>
+	</form>
+	<p/>
+	<form name="form2" action="{{ @BASE }}/signup" method="get"> 
+		<input type="{{@hidden[1]}}" value="signup"/>
+	</form>
+	<p/>
+	<form name="form3" action="{{ @BASE }}/welcome" method="get"> 
+		<input type="{{@hidden[2]}}" value="welcome"/>
+	</form>
+	<p/>
+	<form name="form4" action="{{ @BASE }}/logout" method="post"> 
+		<input type="{{@hidden[3]}}" value="logout"/>
+	</form>
+</html>

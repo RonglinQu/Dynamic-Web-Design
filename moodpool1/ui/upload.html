@@ -1,0 +1,14 @@
+<h1>Upload</h1>
+<form name="upload" method="POST" action="{{ @BASE }}/uploadImage" enctype="multipart/form-data">
+	<label for='picfile'>Select image file: </label>
+	<input type="file" name="picfile" id="picfile" /><br />
+	<label for='picname'>Picture title: </label>
+	<input type="text" name="picname" id="picanme" placeholder="Title for image" size="80"/><br />
+	</p><label>Please choose at least one mood tag from the list</label>
+	<repeat group="{{ @datalist }}" value="{{ @moodtype }}">
+		<div id="tagselection">
+			<input type="checkbox" name="mood[]" value="{{@moodtype.description}}" /><label>{{@moodtype.description}}</label>
+		</div>
+	</repeat>
+	<input type="submit" name="submit" value="Submit"/>
+</form>

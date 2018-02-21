@@ -1,0 +1,71 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+	function passInf(key){
+		if(document.getElementById("button".concat(key)).innerHTML=="like"){
+			var moodtag = document.getElementById("moodtag").innerHTML;
+			var img = document.getElementById("img".concat(key)).href;
+			var url = document.getElementById("url".concat(key)).href;
+			var title = document.getElementById("title".concat(key)).innerHTML;
+			var iteminfo = JSON.stringify({ moodtag: moodtag, img: img,url:url,title:title });
+			var response = new Array();
+			$.ajax(
+				{ 
+					type: "POST", 
+					url: "{{@BASE}}/like", 
+					data: { images : iteminfo },					
+					success: function(response) { 
+						var res = $.parseJSON(response);
+						if(res.result != 1){
+							$("#response").html(res.message);
+						}else{
+							document.getElementById("button".concat(key)).innerHTML = "unlike";
+							document.getElementById("button".concat(key)).value = res.message;
+						}
+					}
+				}
+			);
+		}else{
+			var mediaid = document.getElementById("button".concat(key)).value;
+			var iteminfo = JSON.stringify({ mediaid: mediaid});
+			$.ajax(
+				{ 
+					type: "POST", 
+					url: "{{@BASE}}/unlike", 
+					data: { mediaid : iteminfo }, 
+					success: function(response) { 
+						if(response != 1){
+							$("#response").html(response);
+						}else{
+							document.getElementById("button".concat(key)).innerHTML = "like";
+						}
+					}
+				}
+			);
+		}
+	}
+	function liked(key) {
+		if(document.getElementById("button".concat(key)).innerHTML==true){
+			document.getElementById("button".concat(key)).innerHTML = "unlike";
+		}else{
+			document.getElementById("button".concat(key)).innerHTML = "like";
+		}	
+	}
+</script>
+<h3>searchresult</h3>
+<form name="form" action="{{ @BASE }}/search" method="post"> 
+	<input name="tag" type="text" placeholder="Enter mood" id="tag" size="50" />
+	<input type="submit"  value="submit">
+</form>
+<h4 id="moodtag">{{@mood}}</h4>
+<div id="response"></div>
+<repeat group="{{ @searchresult }}"  key="{{ @ikey }}"  value="{{ @item }}">
+	<div id="imgdisplay" >
+		<p><a href="{{@item.img }}" id = "img{{@ikey}}"><img src="{{@item.img_m}}" /></a></p>
+		<p><a href="{{@item.url }}" id = "url{{@ikey}}">link</a></p>
+		<p><i id="title{{@ikey}}">{{ @item.title }}</i>
+		<button id="button{{@ikey}}" value="{{@item.mediaid}}" onclick="passInf({{@ikey}})">{{@item.liked}}</button></p>
+		<script type="text/javascript">
+			liked({{@ikey}});
+		</script>
+	</div>
+</repeat>

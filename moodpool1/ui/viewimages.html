@@ -1,0 +1,22 @@
+<h3>Uploaded</h3>
+<repeat group="{{ @datalist }}" value="{{ @item }}">
+	<div id="imgdisplay">
+		<p><a href="{{ @BASE }}/{{ @item.url }}"><img src="{{ @BASE }}/{{ @item.thumbNail}}" /></a></p>
+		<p>{{ @item.title }}  (<a href="{{ @BASE }}/delete/{{ @item.recomid }}">Delete?</a>)</p>
+		<repeat group="{{ @item.tags }}" value="{{ @moodtag }}">
+			<label>{{@moodtag}}</label>
+		</repeat>
+	</div>
+</repeat>
+<hr/>
+<h3>Likes</h3>
+<repeat group="{{ @likedimages }}" value="{{ @imageinfo }}">
+	<div id="imgdisplay">
+		<p><a href="{{ @imageinfo.img }}"><img src="{{ @imageinfo.img_m}}" /></a></p>
+		<p>{{ @imageinfo.title }}  (<a href="{{ @BASE }}/unlike/{{ @imageinfo.mediaid }}">unlike</a>)</p>
+		<repeat group="{{ @imageinfo.tags }}" value="{{ @moodtag }}">
+			<label>{{@moodtag}}</label>
+		</repeat>
+	</div>
+</repeat>
+

@@ -1,0 +1,14 @@
+<!-- 
+this file is modified from simpleform.html in SimpleExample app
+ -->
+
+<form id="form1" name="form1" method="post" action="{{ @BASE }}/{{@action}}">
+	Please enter your username: 
+	<input name="username" type="text" placeholder="Enter username" id="username" size="50" />
+	<p/>
+	Please enter your password: 
+	<input name="password" type="text" placeholder="Enter password" id="password" size="50" />
+	<p>
+	  <input type="submit" name="Submit" value="Submit" />
+	</p>
+</form>
