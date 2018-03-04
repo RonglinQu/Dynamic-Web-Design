@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<!-- Bootstrap -->
+<!-- <link href="{{@BASE}}/{{@UI}}css/bootstrap.min.css" rel="stylesheet"	-->
+<!-- <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet"> -->
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!-- style MODAL 2-->	
+<link href="{{@BASE}}/{{@UI}}/css/lightbox.css" rel="stylesheet" type="text/css">
+<!-- Stylesheet CSS-->	
+<link href="{{@BASE}}/{{@UI}}css/filtertest_style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="{{@BASE}}/{{@UI}}/css/main.css" type="text/css">
+<!-- JavaScripts -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>	
+<script src="{{@BASE}}/{{@UI}}js/prueba.js"></script>
+<!-- JavaScripts MODAL 2-->	
+<script type="text/javascript" src="{{@BASE}}/{{@UI}}/js/lightbox.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>	
+	
+<title>Mood Pool Draft</title>	
+</head>
+<body> 	
+<div class="col-md-12">
+	<h3 class="subtitles">{{@username}}'s Profile</h3>	
+	</div>
+	
+<div class="col-md-12">
+	<h4 class="sub-subtitles"> Upload Mood </h4>
+	<hr>
+</div>	
+<div class="col-md-12">
+	<div class="row">
+<!--<div id="columns">-->	<!-- other code 	
+<!--<div class="block_container">-->
+<!-- <form name="form" action="{{ @BASE }}/upload" method="post">
+	<input type="image" src="{{@BASE}}/{{@UI}}/images/upload.png" class="mood_item photo" alt="upload">
+</form> -->
+	<div class="center"><input type="image" data-toggle="modal" data-target="#squarespaceModal" src="{{@BASE}}/{{@UI}}/images/upload.png" class="btn btn-primary center-block"/></div>
+	<!-- line modal -->
+		<div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+						<h3 class="modal-title" id="lineModalLabel">Upload a Mood</h3>
+					</div>
+					<div class="modal-body">
+			
+					<!-- content goes here -->
+					<form name="upload" method="POST" action="{{ @BASE }}/uploadImage" enctype="multipart/form-data">
+						<div class="form-group">
+							<label for="exampleInputFile">Choose file</label>
+							<input type="file" name="picfile" id="exampleInputFile"/>
+							<label for='picname'>Picture title: </label>
+							<input type="text" name="picname" id="picanme" placeholder="Title for image" size="80"/><br />
+							<p class="help-block">Tag your uploaded mood. Choose what moods best describe your uploaded file.</p>
+						</div>
+						<div class="checkbox">
+							<label id="tagselection">
+								<repeat group="{{ @datalist }}" value="{{ @moodtype }}">
+									<li><input type="checkbox" name="mood[]" value="{{@moodtype.description}}" />{{@moodtype.description}}</li>
+								</repeat>
+							</label>
+						</div>
+						<button type="submit" class="btn btn-default">Submit</button>
+					</form>
+				</div>
+				<!-- <div class="modal-footer">
+					<div class="btn-group btn-group-justified" role="group" aria-label="group button">
+						<div class="btn-group" role="group">
+							<button type="button" class="btn btn-default" data-dismiss="modal"  role="button">Close</button>
+						</div>
+						<div class="btn-group btn-delete hidden" role="group">
+							<button type="button" id="delImage" class="btn btn-default btn-hover-red" data-dismiss="modal"  role="button">Delete</button>
+						</div>
+						<div class="btn-group" role="group">
+							<button type="button" id="saveImage" class="btn btn-default btn-hover-green" data-action="save" role="button">Save</button>
+						</div>
+					</div>
+				</div> -->
+			</div>
+		</div>
+	</div>
+	<!-- <form name="form" action="{{ @BASE }}/upload" method="post">
+		<input type="image" src="{{@BASE}}/{{@UI}}/images/upload.png" class="mood_item photo" alt="upload">
+	</form> -->
+<!-- after class add the especific tag for the media -->
+</div>
+</div>
+<!--</div>-->
+		
+<div class="col-md-12">
+	<h4 class="sub-subtitles"> Favourites </h4>
+	<hr>
+	<div class="row">	
+		<repeat group="{{ @likedimages }}" value="{{ @imageinfo }}">
+			<div id="imgdisplay">
+				<p><a href="{{ @imageinfo.img }}" data-lightbox="image3"><img src="{{@BASE}}/{{ @imageinfo.img_m}}" class="mood_item_profile photo" /></a></p>
+				<!-- <p> {{ @imageinfo.title }}  (<a href="{{ @BASE }}/unlike/{{ @imageinfo.mediaid }}">unlike</a>)</p>-->
+				<div class="delete">
+					<button class='delete-toggle heart'><a href="{{ @BASE }}/unlike/{{ @imageinfo.mediaid }}"><img src="{{@BASE}}/{{@UI}}/images/heart2.svg" height="35" width="35"/></a></button>
+				</div>
+				<repeat group="{{ @imageinfo.tags }}" value="{{ @moodtag }}">
+					<label>{{@moodtag}}</label>
+				</repeat>
+			</div>
+		</repeat>
+	<!-- <img src="http://via.placeholder.com/200x175" class="mood_item photo">
+	<img src="http://via.placeholder.com/200x175" class="mood_item video">
+	<img src="http://via.placeholder.com/200x175" class="mood_item photo">
+	<img src="http://via.placeholder.com/200x175" class="mood_item video">
+	<img src="http://via.placeholder.com/200x175" class="mood_item music">
+	<img src="http://via.placeholder.com/200x175" class="mood_item book"> -->
+
+	</div>
+</div>
+	
+<div class="col-md-12">
+	<h4 class="sub-subtitles"> My Moods </h4>
+	<hr>
+	<div class="row">
+	<repeat group="{{ @likeddatalist }}" value="{{ @item }}">
+		<div id="imgdisplay">
+			<p><a href="{{ @BASE }}/{{ @item.url }}" data-lightbox="image3"><img src="{{ @BASE }}/{{ @item.thumbNail}}" class="mood_item_profile photo" /></a></p>
+			<!-- <p>{{ @item.title }}  (<a href="{{ @BASE }}/delete/{{ @item.recomid }}">Delete?</a>)</p> -->
+			<div class="delete">
+				<button class='delete-toggle heart'><a href="{{ @BASE }}/delete/{{ @item.recomid }}">✖</a></button>
+			</div>
+			<repeat group="{{ @item.tags }}" value="{{ @moodtag }}">
+				<label>{{@moodtag}}</label>
+			</repeat>
+		</div>
+	</repeat>
+			
+	<!-- <img src="http://via.placeholder.com/200x175" class="mood_item photo">
+	<img src="http://via.placeholder.com/200x175" class="mood_item music">
+	<img src="http://via.placeholder.com/200x175" class="mood_item photo">
+	<img src="http://via.placeholder.com/200x175" class="mood_item book"> -->
+	</div>
+</div>
+</div>	
+</body>
+</html>
